@@ -1,0 +1,14 @@
+[
+  {
+    "id": 0,
+    "name": "Awesome Extension",
+    "file": "extensions/awesome.js",
+    "banner": "banners/awesome.png"
+  },
+  {
+    "id": 1,
+    "name": "Cool Utilities",
+    "file": "extensions/utils.js",
+    "banner": "banners/utils.png"
+  }
+]
