@@ -56,6 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const card = document.createElement('div');
             card.classList.add('card');
 
+            // Generate HTML with STRICT FOOLPROOF SIZING and author
             card.innerHTML = `
                 <img src="${ext.banner}" alt="${ext.name} Banner" class="card-banner" onerror="this.src=''">
                 <div class="card-content">
@@ -77,6 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 </div>
             `;
+
             gallery.appendChild(card);
         });
 
