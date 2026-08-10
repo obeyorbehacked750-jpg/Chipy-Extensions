@@ -1,13 +1,15 @@
 [
   {
     "id": 0,
-    "name": "Awesome Extension",
-    "file": "extensions/awesome.js",
-    "banner": "banners/awesome.png"
+    "name": "Chipy Uttils",
+    "author":"ChipyDev",
+    "file": "extensions/chipyuttils.js",
+    "banner": "banners/chipyuttils.png"
   },
   {
     "id": 1,
     "name": "Cool Utilities",
+    "author":"",
     "file": "extensions/utils.js",
     "banner": "banners/utils.png"
   }
