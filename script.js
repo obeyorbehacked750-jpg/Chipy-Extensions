@@ -1,30 +1,41 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- Theme Toggle Logic ---
     const themeToggleBtn = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+    const themeText = document.getElementById('theme-text');
     const body = document.body;
 
-    // Check saved theme in localStorage
-    if (localStorage.getItem('theme') === 'dark') {
+    function applyDarkTheme() {
         body.classList.add('dark-mode');
-        themeToggleBtn.textContent = '?? Light Theme';
+        themeIcon.src = 'assets/sun.png';
+        themeText.textContent = 'Light Theme';
+        localStorage.setItem('theme', 'dark');
+    }
+
+    function applyLightTheme() {
+        body.classList.remove('dark-mode');
+        themeIcon.src = 'assets/moon.png';
+        themeText.textContent = 'Dark Theme';
+        localStorage.setItem('theme', 'light');
+    }
+
+    // Check saved theme
+    if (localStorage.getItem('theme') === 'dark') {
+        applyDarkTheme();
     }
 
     themeToggleBtn.addEventListener('click', () => {
-        body.classList.toggle('dark-mode');
-        
         if (body.classList.contains('dark-mode')) {
-            localStorage.setItem('theme', 'dark');
-            themeToggleBtn.textContent = '?? Light Theme';
+            applyLightTheme();
         } else {
-            localStorage.setItem('theme', 'light');
-            themeToggleBtn.textContent = '?? Dark Theme';
+            applyDarkTheme();
         }
     });
 
     // --- Load Extensions Logic ---
     const gallery = document.getElementById('gallery');
 
-    // Fetch the JSON file
+    // Fetch data from extensions.json
     fetch('extensions.json')
         .then(response => response.json())
         .then(data => {
@@ -32,29 +43,38 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .catch(error => {
             console.error('Error loading extensions:', error);
-            gallery.innerHTML = '<p>Failed to load extensions. Ensure you are running this on a local server (like VS Code Live Server).</p>';
+            gallery.innerHTML = '<p>Failed to load extensions. Make sure extensions.json is formatted properly.</p>';
         });
 
     function renderExtensions(extensions) {
-        gallery.innerHTML = ''; // Clear gallery
+        gallery.innerHTML = ''; 
 
         extensions.forEach(ext => {
-            // Get the absolute URL for the extension file (needed for TurboWarp)
+            // Get full URL for TurboWarp and Copy Link
             const absoluteFileUrl = new URL(ext.file, window.location.href).href;
             
-            // Create card container
             const card = document.createElement('div');
             card.classList.add('card');
 
-            // Generate card HTML
+            // Generate HTML with Author and Icons
             card.innerHTML = `
                 <img src="${ext.banner}" alt="${ext.name} Banner" class="card-banner" onerror="this.src=''">
                 <div class="card-content">
                     <h2 class="card-title">${ext.name}</h2>
+                    <p class="card-author">By ${ext.author || 'Unknown'}</p>
                     <div class="button-group">
-                        <button class="btn btn-secondary copy-btn" data-url="${absoluteFileUrl}">?? Copy Link</button>
-                        <button class="btn btn-secondary download-btn" data-file="${ext.file}" data-name="${ext.name}">?? Download</button>
-                        <button class="btn btn-primary try-btn" data-url="${absoluteFileUrl}">?? Try in TurboWarp</button>
+                        <button class="btn btn-secondary copy-btn" data-url="${absoluteFileUrl}">
+                            <img src="assets/link.png" alt="" class="btn-icon">
+                            <span class="btn-label">Copy Link</span>
+                        </button>
+                        <button class="btn btn-secondary download-btn" data-file="${ext.file}" data-name="${ext.name}">
+                            <img src="assets/download.png" alt="" class="btn-icon">
+                            <span>Download</span>
+                        </button>
+                        <button class="btn btn-primary try-btn" data-url="${absoluteFileUrl}">
+                            <img src="assets/turbowarp.png" alt="" class="btn-icon">
+                            <span>Try in TurboWarp</span>
+                        </button>
                     </div>
                 </div>
             `;
@@ -62,43 +82,46 @@ document.addEventListener('DOMContentLoaded', () => {
             gallery.appendChild(card);
         });
 
-        // Add event listeners to the newly created buttons
         attachButtonEvents();
     }
 
     function attachButtonEvents() {
-        // 1. Copy Link
+        // Copy Link
         document.querySelectorAll('.copy-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
-                const url = e.target.getAttribute('data-url');
+                const targetBtn = e.currentTarget;
+                const url = targetBtn.getAttribute('data-url');
+                const labelSpan = targetBtn.querySelector('.btn-label');
+                
                 navigator.clipboard.writeText(url).then(() => {
-                    const originalText = e.target.textContent;
-                    e.target.textContent = '? Copied!';
-                    setTimeout(() => e.target.textContent = originalText, 2000);
+                    const originalText = labelSpan.textContent;
+                    labelSpan.textContent = 'Copied!';
+                    setTimeout(() => labelSpan.textContent = originalText, 2000);
                 });
             });
         });
 
-        // 2. Download
+        // Download
         document.querySelectorAll('.download-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
-                const file = e.target.getAttribute('data-file');
-                const name = e.target.getAttribute('data-name');
+                const targetBtn = e.currentTarget;
+                const file = targetBtn.getAttribute('data-file');
+                const name = targetBtn.getAttribute('data-name');
                 
                 const a = document.createElement('a');
                 a.href = file;
-                a.download = name.replace(/\s+/g, '_') + '.js'; // Formats name with underscores
+                a.download = name.replace(/\s+/g, '_') + '.js';
                 document.body.appendChild(a);
                 a.click();
                 document.body.removeChild(a);
             });
         });
 
-        // 3. Try in TurboWarp
+        // Try in TurboWarp
         document.querySelectorAll('.try-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
-                const url = e.target.getAttribute('data-url');
-                // Format: https://turbowarp.org/editor?extension=URL
+                const targetBtn = e.currentTarget;
+                const url = targetBtn.getAttribute('data-url');
                 const turbowarpUrl = `https://turbowarp.org/editor?extension=${encodeURIComponent(url)}`;
                 window.open(turbowarpUrl, '_blank');
             });
