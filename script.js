@@ -56,7 +56,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const card = document.createElement('div');
             card.classList.add('card');
 
-            // Generate HTML with Author and Icons
             card.innerHTML = `
                 <img src="${ext.banner}" alt="${ext.name} Banner" class="card-banner" onerror="this.src=''">
                 <div class="card-content">
@@ -64,21 +63,20 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p class="card-author">By ${ext.author || 'Unknown'}</p>
                     <div class="button-group">
                         <button class="btn btn-secondary copy-btn" data-url="${absoluteFileUrl}">
-                            <img src="assets/link.png" alt="" class="btn-icon">
+                            <img src="assets/link.png" width="20" height="20" alt="" class="btn-icon" onerror="this.style.display='none'">
                             <span class="btn-label">Copy Link</span>
                         </button>
                         <button class="btn btn-secondary download-btn" data-file="${ext.file}" data-name="${ext.name}">
-                            <img src="assets/download.png" alt="" class="btn-icon">
+                            <img src="assets/download.png" width="20" height="20" alt="" class="btn-icon" onerror="this.style.display='none'">
                             <span>Download</span>
                         </button>
                         <button class="btn btn-primary try-btn" data-url="${absoluteFileUrl}">
-                            <img src="assets/turbowarp.png" alt="" class="btn-icon">
+                            <img src="assets/turbowarp.png" width="20" height="20" alt="" class="btn-icon" onerror="this.style.display='none'">
                             <span>Try in TurboWarp</span>
                         </button>
                     </div>
                 </div>
             `;
-
             gallery.appendChild(card);
         });
 
