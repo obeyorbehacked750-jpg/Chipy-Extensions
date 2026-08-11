@@ -182,7 +182,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         targetUrl = `https://studio.penguinmod.com/editor.html?extension=${encodedUrl}`;
                         break;
                     case 'mistwarp':
-                        targetUrl = `https://warp.mistium.com/editor?extension=${encodedUrl}`;
+                        targetUrl = `https://warp.mistium.com/editor.html?extension=${encodedUrl}`;
                         break;
                     case 'dash':
                         targetUrl = `http://dashblocks.org/editor?extension=${encodedUrl}`;
