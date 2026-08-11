@@ -103,11 +103,10 @@ document.addEventListener('DOMContentLoaded', () => {
                             <img src="assets/download.png" width="20" height="20" alt="" class="btn-icon" onerror="this.style.display='none'">
                             <span>Download</span>
                         </button>
-
                         <div class="try-group">
                             <select id="${selectId}" class="mod-select">
                                 ${ext.unsandboxed 
-                                    ? '<option value="turbowarp" disabled>TurboWarp (Blocked - Unsandboxed)</option>' 
+                                    ? '<option value="turbowarp" disabled>TurboWarp (Blocked)</option>' 
                                     : '<option value="turbowarp">TurboWarp</option>'
                                 }
                                 <option value="penguinmod" ${ext.unsandboxed ? 'selected' : ''}>PenguinMod</option>
