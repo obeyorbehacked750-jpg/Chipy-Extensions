@@ -15,6 +15,15 @@
     "author":"TheShovel",
     "unsandboxed":true,
     "file": "extensions/oneko.js",
-    "banner": "banners/oneko.png"
+    "banner": "banners/thumbnail-oneko.png"
+  },
+  {
+    "id": 2,
+    "name": "Stage Brah",
+    "description":"Spawn Brah cats in your codespace!",
+    "author":" ElectricFuzzball_PM",
+    "unsandboxed":true,
+    "file": "extensions/StageBrah.js",
+    "banner": "banners/StageBrah.png"
   }
 ]
