@@ -31,8 +31,17 @@
     "name": "Stylus",
     "description":"Get the pressure and tilt of a stylus or graphic tablet.",
     "author":" sourdoggy",
-    "unsandboxed":true,
+    "unsandboxed":false,
     "file": "extensions/stylus.js",
     "banner": "banners/stylus.png"
+  },
+  {
+    "id": 3,
+    "name": "Website Hacks",
+    "description":"Very strange a website hacks for turbowarp?",
+    "author":"",
+    "unsandboxed":true,
+    "file": "extensions/WebsiteHacks.js",
+    "banner": "banners/WebsiteHacks.png"
   }
 ]
