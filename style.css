@@ -8,6 +8,8 @@
     --btn-text: #ffffff;
     --secondary-btn: #e5e7eb;
     --secondary-btn-text: #374151;
+    --input-bg: #ffffff;
+    --input-border: #d1d5db;
 }
 
 body.dark-mode {
@@ -17,6 +19,8 @@ body.dark-mode {
     --card-border: #374151;
     --secondary-btn: #374151;
     --secondary-btn-text: #f9fafb;
+    --input-bg: #374151;
+    --input-border: #4b5563;
 }
 
 * {
@@ -47,6 +51,31 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.header-actions {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+/* --- Search Bar Styles --- */
+.search-bar {
+    padding: 0.6rem 1rem;
+    border-radius: 6px;
+    border: 1px solid var(--input-border);
+    background-color: var(--input-bg);
+    color: var(--text-color);
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 250px;
+}
+
+.search-bar:focus {
+    border-color: var(--primary-color);
 }
 
 main {
@@ -90,24 +119,45 @@ main {
     flex-grow: 1;
 }
 
+/* --- Title & Icon Layout --- */
+.card-header-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 0.25rem;
+}
+
 .card-title {
     font-size: 1.25rem;
-    margin-bottom: 0.25rem;
+}
+
+.unsandboxed-icon {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    cursor: help; /* Changes mouse to a question mark when hovering */
 }
 
 .card-author {
     font-size: 0.9rem;
     color: var(--secondary-btn-text);
     opacity: 0.8;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     font-weight: 500;
+}
+
+.card-description {
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.4;
+    opacity: 0.9;
+    flex-grow: 1; /* Pushes the buttons to the bottom */
 }
 
 .button-group {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    margin-top: auto;
 }
 
 /* STRICT Button & Icon Alignment */
@@ -129,96 +179,7 @@ main {
 .btn-icon {
     width: 20px !important;
     height: 20px !important;
-    min-width: 20px !important; /* Prevents text from squishing the icon */
-    object-fit: contain !important;
-    display: block !important;
-}
-
-.btn-primary {
-    background-color: var(--primary-color);
-    color: var(--btn-text);
-}
-
-.btn-primary:hover {
-    background-color: var(--primary-hover);
-}
-
-.btn-secondary {
-    background-color: var(--secondary-btn);
-    color: var(--secondary-btn-text);
-}
-
-.btn-secondary:hover {
-    filter: brightness(0.9);
-}.card {
-    background-color: var(--card-bg);
-    border: 1px solid var(--card-border);
-    border-radius: 8px;
-    overflow: hidden;
-    transition: transform 0.2s, box-shadow 0.2s;
-    display: flex;
-    flex-direction: column;
-}
-
-.card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-}
-
-.card-banner {
-    width: 100%;
-    height: 160px;
-    object-fit: cover;
-    background-color: var(--card-border);
-}
-
-.card-content {
-    padding: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-}
-
-.card-title {
-    font-size: 1.25rem;
-    margin-bottom: 0.25rem;
-}
-
-.card-author {
-    font-size: 0.9rem;
-    color: var(--secondary-btn-text);
-    opacity: 0.8;
-    margin-bottom: 1rem;
-    font-weight: 500;
-}
-
-.button-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    margin-top: auto;
-}
-
-/* Button & Icon Alignment */
-.btn {
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    gap: 8px !important;
-    padding: 0.6rem 1rem;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: 600;
-    font-size: 1rem;
-    transition: background-color 0.2s, filter 0.2s;
-    text-decoration: none;
-}
-
-.btn-icon {
-    width: 20px !important;
-    height: 20px !important;
-    min-width: 20px !important; /* Prevents text from squishing the icon */
+    min-width: 20px !important;
     object-fit: contain !important;
     display: block !important;
 }
