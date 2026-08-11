@@ -19,7 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('theme', 'light');
     }
 
-    // Check saved theme
     if (localStorage.getItem('theme') === 'dark') {
         applyDarkTheme();
     }
@@ -32,36 +31,69 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- Load Extensions Logic ---
+    // --- Data Storage for Search ---
+    let allExtensions = [];
     const gallery = document.getElementById('gallery');
+    const searchInput = document.getElementById('search-input');
 
     // Fetch data from extensions.json
     fetch('extensions.json')
         .then(response => response.json())
         .then(data => {
-            renderExtensions(data);
+            allExtensions = data; // Save the data
+            renderExtensions(allExtensions); // Draw it for the first time
         })
         .catch(error => {
             console.error('Error loading extensions:', error);
             gallery.innerHTML = '<p>Failed to load extensions. Make sure extensions.json is formatted properly.</p>';
         });
 
+    // --- Search Bar Logic ---
+    searchInput.addEventListener('input', (e) => {
+        const query = e.target.value.toLowerCase();
+        
+        // Filter out extensions that don't match the search
+        const filteredExtensions = allExtensions.filter(ext => {
+            const matchName = ext.name.toLowerCase().includes(query);
+            const matchAuthor = (ext.author || '').toLowerCase().includes(query);
+            const matchDesc = (ext.description || '').toLowerCase().includes(query);
+            
+            return matchName || matchAuthor || matchDesc;
+        });
+
+        // Draw the filtered list
+        renderExtensions(filteredExtensions);
+    });
+
     function renderExtensions(extensions) {
         gallery.innerHTML = ''; 
 
+        if (extensions.length === 0) {
+            gallery.innerHTML = '<p>No extensions found.</p>';
+            return;
+        }
+
         extensions.forEach(ext => {
-            // Get full URL for TurboWarp and Copy Link
             const absoluteFileUrl = new URL(ext.file, window.location.href).href;
             
+            // Check if it is unsandboxed to display the icon
+            // Adding title="Unsandboxed extension!" makes the text appear when you point at it!
+            const unsandboxedHtml = ext.unsandboxed 
+                ? `<img src="assets/unsandboxed.png" class="unsandboxed-icon" title="Unsandboxed extension!" alt="Unsandboxed" onerror="this.style.display='none'">` 
+                : '';
+
             const card = document.createElement('div');
             card.classList.add('card');
 
-            // Generate HTML with STRICT FOOLPROOF SIZING and author
             card.innerHTML = `
                 <img src="${ext.banner}" alt="${ext.name} Banner" class="card-banner" onerror="this.src=''">
                 <div class="card-content">
-                    <h2 class="card-title">${ext.name}</h2>
+                    <div class="card-header-row">
+                        <h2 class="card-title">${ext.name}</h2>
+                        ${unsandboxedHtml}
+                    </div>
                     <p class="card-author">By ${ext.author || 'Unknown'}</p>
+                    <p class="card-description">${ext.description || 'No description provided.'}</p>
                     <div class="button-group">
                         <button class="btn btn-secondary copy-btn" data-url="${absoluteFileUrl}">
                             <img src="assets/link.png" width="20" height="20" alt="" class="btn-icon" onerror="this.style.display='none'">
@@ -86,7 +118,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function attachButtonEvents() {
-        // Copy Link
         document.querySelectorAll('.copy-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const targetBtn = e.currentTarget;
@@ -101,7 +132,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-        // Download
         document.querySelectorAll('.download-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const targetBtn = e.currentTarget;
@@ -117,7 +147,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-        // Try in TurboWarp
         document.querySelectorAll('.try-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const targetBtn = e.currentTarget;
