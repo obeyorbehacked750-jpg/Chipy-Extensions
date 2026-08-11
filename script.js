@@ -31,41 +31,40 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- Data Storage for Search ---
+    // --- Search & Fetch Logic ---
     let allExtensions = [];
     const gallery = document.getElementById('gallery');
     const searchInput = document.getElementById('search-input');
 
-    // Fetch data from extensions.json
+    // Fetch data from JSON
     fetch('extensions.json')
         .then(response => response.json())
         .then(data => {
-            allExtensions = data; // Save the data
-            renderExtensions(allExtensions); // Draw it for the first time
+            allExtensions = data;
+            renderExtensions(allExtensions);
         })
         .catch(error => {
             console.error('Error loading extensions:', error);
             gallery.innerHTML = '<p>Failed to load extensions. Make sure extensions.json is formatted properly.</p>';
         });
 
-    // --- Search Bar Logic ---
+    // Search bar functionality
     searchInput.addEventListener('input', (e) => {
         const query = e.target.value.toLowerCase();
         
-        // Filter out extensions that don't match the search
         const filteredExtensions = allExtensions.filter(ext => {
-            const matchName = ext.name.toLowerCase().includes(query);
+            const matchName = (ext.name || '').toLowerCase().includes(query);
             const matchAuthor = (ext.author || '').toLowerCase().includes(query);
             const matchDesc = (ext.description || '').toLowerCase().includes(query);
             
             return matchName || matchAuthor || matchDesc;
         });
 
-        // Draw the filtered list
         renderExtensions(filteredExtensions);
     });
 
-function renderExtensions(extensions) {
+    // --- Render Logic ---
+    function renderExtensions(extensions) {
         gallery.innerHTML = ''; 
 
         if (extensions.length === 0) {
@@ -101,7 +100,6 @@ function renderExtensions(extensions) {
                             <img src="assets/download.png" width="20" height="20" alt="" class="btn-icon" onerror="this.style.display='none'">
                             <span>Download</span>
                         </button>
-                        <!-- Notice we pass data-unsandboxed here -->
                         <button class="btn btn-primary try-btn" data-url="${absoluteFileUrl}" data-unsandboxed="${ext.unsandboxed}">
                             <img src="assets/turbowarp.png" width="20" height="20" alt="" class="btn-icon" onerror="this.style.display='none'">
                             <span>Try in TurboWarp</span>
@@ -116,8 +114,9 @@ function renderExtensions(extensions) {
         attachButtonEvents();
     }
 
+    // --- Button Actions Logic ---
     function attachButtonEvents() {
-        // 1. Copy Link
+        // Copy Link
         document.querySelectorAll('.copy-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const targetBtn = e.currentTarget;
@@ -132,7 +131,7 @@ function renderExtensions(extensions) {
             });
         });
 
-        // 2. Download Button
+        // Download
         document.querySelectorAll('.download-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const targetBtn = e.currentTarget;
@@ -148,7 +147,7 @@ function renderExtensions(extensions) {
             });
         });
 
-        // 3. Try in TurboWarp Button
+        // Try in TurboWarp
         document.querySelectorAll('.try-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const targetBtn = e.currentTarget;
@@ -157,11 +156,10 @@ function renderExtensions(extensions) {
 
                 let turbowarpUrl;
                 
+                // Routes to the correct TurboWarp editor link based on extension type
                 if (isUnsandboxed) {
-                    // MAGIC PARAMETER: Forces TurboWarp to load it without the sandbox
                     turbowarpUrl = `https://turbowarp.org/editor?unsandboxed_extension=${encodeURIComponent(url)}`;
                 } else {
-                    // Standard parameter for safe, sandboxed extensions
                     turbowarpUrl = `https://turbowarp.org/editor?extension=${encodeURIComponent(url)}`;
                 }
                 
@@ -169,3 +167,4 @@ function renderExtensions(extensions) {
             });
         });
     }
+});
