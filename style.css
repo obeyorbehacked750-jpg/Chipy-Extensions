@@ -200,6 +200,7 @@ main {
 
 
 /* --- Try Group & Select Input Styles --- */
+/* --- Try Group & Select Input Styles --- */
 .try-group {
     display: flex;
     gap: 0.5rem;
@@ -208,15 +209,19 @@ main {
 
 .mod-select {
     flex: 1;
-    padding: 0.6rem 0.8rem;
+    min-width: 0;
+    padding: 0.6rem 0.5rem;
     border-radius: 6px;
     border: 1px solid var(--input-border);
     background-color: var(--input-bg);
     color: var(--text-color);
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     outline: none;
     cursor: pointer;
     transition: border-color 0.2s;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .mod-select:focus {
@@ -228,7 +233,8 @@ main {
 }
 
 .try-group .try-btn {
-    min-width: 80px;
+    min-width: 70px;
+    flex-shrink: 0;
 }
 .btn-secondary:hover {
     filter: brightness(0.9);
