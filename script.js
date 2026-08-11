@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
         renderExtensions(filteredExtensions);
     });
 
-    function renderExtensions(extensions) {
+function renderExtensions(extensions) {
         gallery.innerHTML = ''; 
 
         if (extensions.length === 0) {
@@ -76,8 +76,6 @@ document.addEventListener('DOMContentLoaded', () => {
         extensions.forEach(ext => {
             const absoluteFileUrl = new URL(ext.file, window.location.href).href;
             
-            // Check if it is unsandboxed to display the icon
-            // Adding title="Unsandboxed extension!" makes the text appear when you point at it!
             const unsandboxedHtml = ext.unsandboxed 
                 ? `<img src="assets/unsandboxed.png" class="unsandboxed-icon" title="Unsandboxed extension!" alt="Unsandboxed" onerror="this.style.display='none'">` 
                 : '';
@@ -103,7 +101,8 @@ document.addEventListener('DOMContentLoaded', () => {
                             <img src="assets/download.png" width="20" height="20" alt="" class="btn-icon" onerror="this.style.display='none'">
                             <span>Download</span>
                         </button>
-                        <button class="btn btn-primary try-btn" data-url="${absoluteFileUrl}">
+                        <!-- Notice we pass data-unsandboxed here -->
+                        <button class="btn btn-primary try-btn" data-url="${absoluteFileUrl}" data-unsandboxed="${ext.unsandboxed}">
                             <img src="assets/turbowarp.png" width="20" height="20" alt="" class="btn-icon" onerror="this.style.display='none'">
                             <span>Try in TurboWarp</span>
                         </button>
@@ -118,6 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function attachButtonEvents() {
+        // 1. Copy Link
         document.querySelectorAll('.copy-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const targetBtn = e.currentTarget;
@@ -132,6 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
+        // 2. Download Button
         document.querySelectorAll('.download-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const targetBtn = e.currentTarget;
@@ -147,13 +148,24 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
+        // 3. Try in TurboWarp Button
         document.querySelectorAll('.try-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const targetBtn = e.currentTarget;
                 const url = targetBtn.getAttribute('data-url');
-                const turbowarpUrl = `https://turbowarp.org/editor?extension=${encodeURIComponent(url)}`;
+                const isUnsandboxed = targetBtn.getAttribute('data-unsandboxed') === 'true';
+
+                let turbowarpUrl;
+                
+                if (isUnsandboxed) {
+                    // MAGIC PARAMETER: Forces TurboWarp to load it without the sandbox
+                    turbowarpUrl = `https://turbowarp.org/editor?unsandboxed_extension=${encodeURIComponent(url)}`;
+                } else {
+                    // Standard parameter for safe, sandboxed extensions
+                    turbowarpUrl = `https://turbowarp.org/editor?extension=${encodeURIComponent(url)}`;
+                }
+                
                 window.open(turbowarpUrl, '_blank');
             });
         });
     }
-});
