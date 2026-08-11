@@ -8,6 +8,7 @@
         name: 'Chipy Uttils',
         color1: '#FF4444', 
         color2: '#CC0000',
+        // Icons removed to prevent web browser CORS crashes
         blocks: [
           {
             opcode: 'pointTowards',
