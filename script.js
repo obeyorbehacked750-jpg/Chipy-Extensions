@@ -179,13 +179,13 @@ document.addEventListener('DOMContentLoaded', () => {
                         targetUrl = `https://turbowarp.org/editor?extension=${encodedUrl}`;
                         break;
                     case 'penguinmod':
-                        targetUrl = `https://studio.penguinmod.com/#extension=${encodedUrl}`;
+                        targetUrl = `https://studio.penguinmod.com/editor.html?extension=${encodedUrl}`;
                         break;
                     case 'mistwarp':
-                        targetUrl = `https://mistwarp.org/editor?extension=${encodedUrl}`;
+                        targetUrl = `https://warp.mistium.com/editor?extension=${encodedUrl}`;
                         break;
                     case 'dash':
-                        targetUrl = `https://dash.scratchextensions.com/editor?extension=${encodedUrl}`;
+                        targetUrl = `http://dashblocks.org/editor?extension=${encodedUrl}`;
                         break;
                     default:
                         targetUrl = `https://turbowarp.org/editor?extension=${encodedUrl}`;
