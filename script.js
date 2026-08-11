@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // --- Render Logic ---
-    function renderExtensions(extensions) {
+function renderExtensions(extensions) {
         gallery.innerHTML = ''; 
 
         if (extensions.length === 0) {
@@ -78,6 +78,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const unsandboxedHtml = ext.unsandboxed 
                 ? `<img src="assets/unsandboxed.png" class="unsandboxed-icon" title="Unsandboxed extension!" alt="Unsandboxed" onerror="this.style.display='none'">` 
                 : '';
+
+            // CHANGE: Check if it's unsandboxed to change the button text!
+            const tryButtonText = ext.unsandboxed ? 'How to Use' : 'Try in TurboWarp';
 
             const card = document.createElement('div');
             card.classList.add('card');
@@ -100,9 +103,10 @@ document.addEventListener('DOMContentLoaded', () => {
                             <img src="assets/download.png" width="20" height="20" alt="" class="btn-icon" onerror="this.style.display='none'">
                             <span>Download</span>
                         </button>
+                        <!-- CHANGE: We added data-unsandboxed so the button knows what type of extension it is -->
                         <button class="btn btn-primary try-btn" data-url="${absoluteFileUrl}" data-unsandboxed="${ext.unsandboxed}">
                             <img src="assets/turbowarp.png" width="20" height="20" alt="" class="btn-icon" onerror="this.style.display='none'">
-                            <span>Try in TurboWarp</span>
+                            <span>${tryButtonText}</span>
                         </button>
                     </div>
                 </div>
@@ -114,9 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
         attachButtonEvents();
     }
 
-    // --- Button Actions Logic ---
     function attachButtonEvents() {
-        // Copy Link
         document.querySelectorAll('.copy-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const targetBtn = e.currentTarget;
@@ -131,7 +133,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-        // Download
         document.querySelectorAll('.download-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const targetBtn = e.currentTarget;
@@ -147,24 +148,22 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-        // Try in TurboWarp
         document.querySelectorAll('.try-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const targetBtn = e.currentTarget;
                 const url = targetBtn.getAttribute('data-url');
+                
+                // CHANGE: Read the unsandboxed status
                 const isUnsandboxed = targetBtn.getAttribute('data-unsandboxed') === 'true';
 
-                let turbowarpUrl;
-                
-                // Routes to the correct TurboWarp editor link based on extension type
                 if (isUnsandboxed) {
-                    turbowarpUrl = `https://turbowarp.org/editor?unsandboxed_extension=${encodeURIComponent(url)}`;
+                    // Show instructions instead of trying to open the URL
+                    alert("⚠️ TURBOWARP SECURITY RULE:\n\nTurboWarp does not allow unsandboxed extensions to be loaded directly from a URL.\n\nTo use this extension:\n1. Click the 'Download' button.\n2. Open TurboWarp and click 'Add Extension'.\n3. Click 'Custom Extension' at the bottom.\n4. Select 'File' and choose your downloaded file.\n5. IMPORTANT: Check the 'Run extension without sandbox' box!");
                 } else {
-                    turbowarpUrl = `https://turbowarp.org/editor?extension=${encodeURIComponent(url)}`;
+                    // It is sandboxed, open it normally!
+                    const turbowarpUrl = `https://turbowarp.org/editor?extension=${encodeURIComponent(url)}`;
+                    window.open(turbowarpUrl, '_blank');
                 }
-                
-                window.open(turbowarpUrl, '_blank');
             });
         });
     }
-});
