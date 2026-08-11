@@ -25,7 +25,7 @@
     "unsandboxed":true,
     "file": "extensions/StageBrah.js",
     "banner": "banners/StageBrah.png"
-  ,
+  },
   {
     "id": 3,
     "name": "Stylus",
