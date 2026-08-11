@@ -73,14 +73,14 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        extensions.forEach(ext => {
+        extensions.forEach((ext, index) => {
             const absoluteFileUrl = new URL(ext.file, window.location.href).href;
             
-            // Check if it is unsandboxed to display the icon
-            // Adding title="Unsandboxed extension!" makes the text appear when you point at it!
             const unsandboxedHtml = ext.unsandboxed 
                 ? `<img src="assets/unsandboxed.png" class="unsandboxed-icon" title="Unsandboxed extension!" alt="Unsandboxed" onerror="this.style.display='none'">` 
                 : '';
+
+            const selectId = `mod-select-${index}`;
 
             const card = document.createElement('div');
             card.classList.add('card');
@@ -103,10 +103,21 @@ document.addEventListener('DOMContentLoaded', () => {
                             <img src="assets/download.png" width="20" height="20" alt="" class="btn-icon" onerror="this.style.display='none'">
                             <span>Download</span>
                         </button>
-                        <button class="btn btn-primary try-btn" data-url="${absoluteFileUrl}">
-                            <img src="assets/turbowarp.png" width="20" height="20" alt="" class="btn-icon" onerror="this.style.display='none'">
-                            <span>Try in TurboWarp</span>
-                        </button>
+
+                        <div class="try-group">
+                            <select id="${selectId}" class="mod-select">
+                                ${ext.unsandboxed 
+                                    ? '<option value="turbowarp" disabled>TurboWarp (Blocked - Unsandboxed)</option>' 
+                                    : '<option value="turbowarp">TurboWarp</option>'
+                                }
+                                <option value="penguinmod" ${ext.unsandboxed ? 'selected' : ''}>PenguinMod</option>
+                                <option value="mistwarp">MistWarp</option>
+                                <option value="dash">Dash</option>
+                            </select>
+                            <button class="btn btn-primary try-btn" data-url="${absoluteFileUrl}" data-unsandboxed="${ext.unsandboxed}" data-select-id="${selectId}">
+                                <span>Try</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
             `;
@@ -151,8 +162,37 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.addEventListener('click', (e) => {
                 const targetBtn = e.currentTarget;
                 const url = targetBtn.getAttribute('data-url');
-                const turbowarpUrl = `https://turbowarp.org/editor?extension=${encodeURIComponent(url)}`;
-                window.open(turbowarpUrl, '_blank');
+                const isUnsandboxed = targetBtn.getAttribute('data-unsandboxed') === 'true';
+                const selectId = targetBtn.getAttribute('data-select-id');
+                const modSelect = document.getElementById(selectId);
+                const selectedMod = modSelect.value;
+
+                if (selectedMod === 'turbowarp' && isUnsandboxed) {
+                    alert('TurboWarp cannot load unsandboxed extensions.');
+                    return;
+                }
+
+                const encodedUrl = encodeURIComponent(url);
+                let targetUrl = '';
+
+                switch (selectedMod) {
+                    case 'turbowarp':
+                        targetUrl = `https://turbowarp.org/editor?extension=${encodedUrl}`;
+                        break;
+                    case 'penguinmod':
+                        targetUrl = `https://studio.penguinmod.com/#extension=${encodedUrl}`;
+                        break;
+                    case 'mistwarp':
+                        targetUrl = `https://mistwarp.org/editor?extension=${encodedUrl}`;
+                        break;
+                    case 'dash':
+                        targetUrl = `https://dash.scratchextensions.com/editor?extension=${encodedUrl}`;
+                        break;
+                    default:
+                        targetUrl = `https://turbowarp.org/editor?extension=${encodedUrl}`;
+                }
+
+                window.open(targetUrl, '_blank');
             });
         });
     }
