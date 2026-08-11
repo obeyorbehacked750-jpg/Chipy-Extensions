@@ -2,7 +2,7 @@
   {
     "id": 0,
     "name": "Chipy Uttils",
-    "description":"Add some blocks uttils, maybe will help with something",
+    "description":"Add some blocks uttils, maybe will help with something.",
     "author":"ChipyDev",
     "unsandboxed":false,
     "file": "extensions/chipyuttils.js",
@@ -10,11 +10,11 @@
   },
   {
     "id": 1,
-    "name": "Cool Utilities",
-    "description":"",
-    "author":"",
-    "unsandboxed":false,
-    "file": "extensions/utils.js",
-    "banner": "banners/utils.png"
+    "name": "Oneko",
+    "description":"Add its into editor a cat what moves to your cursor.",
+    "author":"TheShovel",
+    "unsandboxed":true,
+    "file": "extensions/oneko.js",
+    "banner": "banners/oneko.png"
   }
 ]
