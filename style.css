@@ -198,6 +198,38 @@ main {
     color: var(--secondary-btn-text);
 }
 
+
+/* --- Try Group & Select Input Styles --- */
+.try-group {
+    display: flex;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.mod-select {
+    flex: 1;
+    padding: 0.6rem 0.8rem;
+    border-radius: 6px;
+    border: 1px solid var(--input-border);
+    background-color: var(--input-bg);
+    color: var(--text-color);
+    font-size: 0.95rem;
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
+
+.mod-select:focus {
+    border-color: var(--primary-color);
+}
+
+.mod-select option:disabled {
+    color: #888888;
+}
+
+.try-group .try-btn {
+    min-width: 80px;
+}
 .btn-secondary:hover {
     filter: brightness(0.9);
 }
