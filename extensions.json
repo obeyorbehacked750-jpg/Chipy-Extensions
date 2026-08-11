@@ -25,5 +25,14 @@
     "unsandboxed":true,
     "file": "extensions/StageBrah.js",
     "banner": "banners/StageBrah.png"
+  ,
+  {
+    "id": 3,
+    "name": "Stylus",
+    "description":"Get the pressure and tilt of a stylus or graphic tablet.",
+    "author":" sourdoggy",
+    "unsandboxed":true,
+    "file": "extensions/stylus.js",
+    "banner": "banners/stylus.png"
   }
 ]
