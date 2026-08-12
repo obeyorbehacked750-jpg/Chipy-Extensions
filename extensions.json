@@ -61,4 +61,5 @@
     "unsandboxed":true,
     "file": "extensions/AutoSave.js",
     "banner": "banners/AutoSave.png"
+  }
 ]
