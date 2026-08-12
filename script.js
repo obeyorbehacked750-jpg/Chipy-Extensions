@@ -86,6 +86,14 @@ document.addEventListener('DOMContentLoaded', () => {
             const bannerSrc = ext.banner ? ext.banner : 'banners/unknown.png';
             const descriptionText = ext.description ? ext.description : 'New extension, details announced later.';
 
+            // --- Disable Try Button for Unsandboxed Extensions ---
+            const tryBtnDisabledAttr = ext.unsandboxed 
+                ? 'disabled style="opacity: 0.5; cursor: not-allowed;" title="Unsandboxed extensions cannot be tried directly."' 
+                : '';
+            const selectDisabledAttr = ext.unsandboxed 
+                ? 'disabled style="opacity: 0.5; cursor: not-allowed;"' 
+                : '';
+
             const card = document.createElement('div');
             card.classList.add('card');
 
@@ -112,16 +120,13 @@ document.addEventListener('DOMContentLoaded', () => {
                             <span>Download</span>
                         </button>
                         <div class="try-group">
-                            <select id="${selectId}" class="mod-select">
-                                ${ext.unsandboxed 
-                                    ? '<option value="turbowarp" disabled>TurboWarp (Blocked)</option>' 
-                                    : '<option value="turbowarp">TurboWarp</option>'
-                                }
-                                <option value="penguinmod" ${ext.unsandboxed ? 'selected' : ''}>PenguinMod</option>
+                            <select id="${selectId}" class="mod-select" ${selectDisabledAttr}>
+                                <option value="turbowarp">TurboWarp</option>
+                                <option value="penguinmod">PenguinMod</option>
                                 <option value="mistwarp">MistWarp</option>
                                 <option value="dash">Dash</option>
                             </select>
-                            <button class="btn btn-primary try-btn" data-url="${absoluteFileUrl}" data-unsandboxed="${ext.unsandboxed}" data-select-id="${selectId}">
+                            <button class="btn btn-primary try-btn" data-url="${absoluteFileUrl}" data-unsandboxed="${ext.unsandboxed}" data-select-id="${selectId}" ${tryBtnDisabledAttr}>
                                 <span>Try</span>
                             </button>
                         </div>
@@ -150,7 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-        // --- NEW: Copy Code Button Event ---
+        // --- Copy Code Button Event ---
         document.querySelectorAll('.copy-code-btn').forEach(btn => {
             btn.addEventListener('click', async (e) => {
                 const targetBtn = e.currentTarget;
@@ -195,16 +200,15 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.try-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const targetBtn = e.currentTarget;
+                
+                // If it's disabled, stop here just in case a user clicks around the visual lock
+                if (targetBtn.hasAttribute('disabled')) return;
+
                 const url = targetBtn.getAttribute('data-url');
                 const isUnsandboxed = targetBtn.getAttribute('data-unsandboxed') === 'true';
                 const selectId = targetBtn.getAttribute('data-select-id');
                 const modSelect = document.getElementById(selectId);
                 const selectedMod = modSelect.value;
-
-                if (selectedMod === 'turbowarp' && isUnsandboxed) {
-                    alert('TurboWarp cannot load unsandboxed extensions.');
-                    return;
-                }
 
                 const encodedUrl = encodeURIComponent(url);
                 let targetUrl = '';
