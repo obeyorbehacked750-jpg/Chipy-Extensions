@@ -43,5 +43,14 @@
     "unsandboxed":true,
     "file": "extensions/WebsiteHacks.js",
     "banner": "banners/WebsiteHacks.png"
+  },
+  {
+    "id": 4,
+    "name": "Extension creator",
+    "description":"",
+    "author":"",
+    "unsandboxed":true,
+    "file": "extensions/ExtensionCreator.js",
+    "banner": ""
   }
 ]
