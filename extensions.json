@@ -36,7 +36,7 @@
     "banner": "banners/stylus.png"
   },
   {
-    "id": 3,
+    "id": 4,
     "name": "Website Hacks",
     "description":"Very strange a website hacks for turbowarp?",
     "author":"",
@@ -45,7 +45,7 @@
     "banner": "banners/WebsiteHacks.png"
   },
   {
-    "id": 4,
+    "id": 5,
     "name": "Extension creator",
     "description":"",
     "author":"",
@@ -54,7 +54,7 @@
     "banner": ""
   },
   {
-    "id": 5,
+    "id": 6,
     "name": "Auto Save",
     "description":"Several features for games",
     "author":"QBacks",
