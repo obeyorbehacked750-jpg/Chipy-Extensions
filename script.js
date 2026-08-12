@@ -81,23 +81,31 @@ document.addEventListener('DOMContentLoaded', () => {
                 : '';
 
             const selectId = `mod-select-${index}`;
+            
+            // --- Fallbacks for Banner and Description ---
+            const bannerSrc = ext.banner ? ext.banner : 'banners/unknown.png';
+            const descriptionText = ext.description ? ext.description : 'New extension, details announced later.';
 
             const card = document.createElement('div');
             card.classList.add('card');
 
             card.innerHTML = `
-                <img src="${ext.banner}" alt="${ext.name} Banner" class="card-banner" onerror="this.src=''">
+                <img src="${bannerSrc}" alt="${ext.name} Banner" class="card-banner" onerror="this.src='banners/unknown.png'">
                 <div class="card-content">
                     <div class="card-header-row">
                         <h2 class="card-title">${ext.name}</h2>
                         ${unsandboxedHtml}
                     </div>
                     <p class="card-author">By ${ext.author || 'Unknown'}</p>
-                    <p class="card-description">${ext.description || 'No description provided.'}</p>
+                    <p class="card-description">${descriptionText}</p>
                     <div class="button-group">
                         <button class="btn btn-secondary copy-btn" data-url="${absoluteFileUrl}">
                             <img src="assets/link.png" width="20" height="20" alt="" class="btn-icon" onerror="this.style.display='none'">
                             <span class="btn-label">Copy Link</span>
+                        </button>
+                        <button class="btn btn-secondary copy-code-btn" data-file="${ext.file}">
+                            <img src="assets/code.png" width="20" height="20" alt="" class="btn-icon" onerror="this.style.display='none'">
+                            <span class="btn-label">Copy Code</span>
                         </button>
                         <button class="btn btn-secondary download-btn" data-file="${ext.file}" data-name="${ext.name}">
                             <img src="assets/download.png" width="20" height="20" alt="" class="btn-icon" onerror="this.style.display='none'">
@@ -136,9 +144,36 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 navigator.clipboard.writeText(url).then(() => {
                     const originalText = labelSpan.textContent;
-                    labelSpan.textContent = 'Copied!';
+                    labelSpan.textContent = 'Copied Link!';
                     setTimeout(() => labelSpan.textContent = originalText, 2000);
                 });
+            });
+        });
+
+        // --- NEW: Copy Code Button Event ---
+        document.querySelectorAll('.copy-code-btn').forEach(btn => {
+            btn.addEventListener('click', async (e) => {
+                const targetBtn = e.currentTarget;
+                const fileUrl = targetBtn.getAttribute('data-file');
+                const labelSpan = targetBtn.querySelector('.btn-label');
+                const originalText = labelSpan.textContent;
+                
+                try {
+                    labelSpan.textContent = 'Fetching...';
+                    // Fetch the actual JS code file content
+                    const response = await fetch(fileUrl);
+                    if (!response.ok) throw new Error('File not found');
+                    const code = await response.text();
+                    
+                    // Copy fetched code to clipboard
+                    await navigator.clipboard.writeText(code);
+                    labelSpan.textContent = 'Code Copied!';
+                } catch (error) {
+                    console.error('Failed to fetch and copy code:', error);
+                    labelSpan.textContent = 'Error!';
+                }
+                
+                setTimeout(() => labelSpan.textContent = originalText, 2000);
             });
         });
 
