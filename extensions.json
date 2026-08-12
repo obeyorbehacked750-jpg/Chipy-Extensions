@@ -52,5 +52,13 @@
     "unsandboxed":true,
     "file": "extensions/ExtensionCreator.js",
     "banner": ""
-  }
+  },
+  {
+    "id": 4,
+    "name": "Auto Save",
+    "description":"Several features for games",
+    "author":"QBacks",
+    "unsandboxed":true,
+    "file": "extensions/AutoSave.js",
+    "banner": "banners/AutoSave.png"
 ]
