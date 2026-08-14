@@ -125,6 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <option value="penguinmod">PenguinMod</option>
                                 <option value="mistwarp">MistWarp</option>
                                 <option value="dash">Dash</option>
+                                <option value="chipywarp">Chipywarp</option>
                             </select>
                             <button class="btn btn-primary try-btn" data-url="${absoluteFileUrl}" data-unsandboxed="${ext.unsandboxed}" data-select-id="${selectId}" ${tryBtnDisabledAttr}>
                                 <span>Try</span>
@@ -225,6 +226,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         break;
                     case 'dash':
                         targetUrl = `http://dashblocks.org/editor?extension=${encodedUrl}`;
+                        break;
+                    case 'chipywarp':
+                        targetUrl = `https://obeyorbehacked750-jpg.github.io/chipywarp-gui/editor.html?extension=${encodedUrl}`;
                         break;
                     default:
                         targetUrl = `https://turbowarp.org/editor?extension=${encodedUrl}`;
