@@ -61,5 +61,14 @@
     "unsandboxed":false,
     "file": "extensions/AutoSave.js",
     "banner": "banners/AutoSave.png"
+  },
+  {
+    "id": 7,
+    "name": "Kobold AI",
+    "description":"Generate text and images for free with the power of The Horde",
+    "author":"pooiod7",
+    "unsandboxed":false,
+    "file": "extensions/KoboldAI.js",
+    "banner": "banners/KoboldAI.svg"
   }
 ]
