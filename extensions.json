@@ -70,5 +70,14 @@
     "unsandboxed":false,
     "file": "extensions/KoboldAI.js",
     "banner": "banners/KoboldAI.svg"
-  }
+  },
+  {
+    "id": 7,
+    "name": "Chipywarp Tools",
+    "description":"Some chipywarp tools idk why you need use them",
+    "author":"pooiod7",
+    "unsandboxed":false,
+    "file": "extensions/chipywarptools.js",
+    "banner": "banners/chipywarp-tools.png"
+  },
 ]
