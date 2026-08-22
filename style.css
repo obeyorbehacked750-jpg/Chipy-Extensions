@@ -1,7 +1,7 @@
 :root {
     --bg-color: #f4f4f9;
     --text-color: #333333;
-    --nav-bg: #ffffff;
+    --nav-bg: #47cc4b;
     --card-bg: #ffffff;
     --border-color: #dddddd;
     --primary: #007bff;
@@ -13,7 +13,7 @@
 [data-theme="dark"] {
     --bg-color: #121212;
     --text-color: #e0e0e0;
-    --nav-bg: #1e1e1e;
+    --nav-bg: #47cc4b;
     --card-bg: #2a2a2a;
     --border-color: #444;
     --primary: #3b82f6;
@@ -35,7 +35,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 30px;
+    padding: 0px 30px;
     background-color: var(--nav-bg);
     border-bottom: 1px solid var(--border-color);
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
@@ -47,7 +47,7 @@ body {
 
 .nav-links button {
     background: transparent;
-    border: none;
+    border: 1px solid var(--border-color); /
     color: var(--text-color);
     font-size: 16px;
     cursor: pointer;
@@ -61,11 +61,6 @@ body {
     background: var(--border-color);
 }
 
-.theme-toggle {
-    border: 1px solid var(--border-color) !important;
-}
-
-/* Tabs */
 .tab-content {
     display: none;
     padding: 40px;
