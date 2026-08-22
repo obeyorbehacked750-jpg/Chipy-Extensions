@@ -1,6 +1,34 @@
-/* --- Menu Bar Styles --- */
+/* --- Base Variables (Light Theme) --- */
 :root {
-  --primary-color: #3498db;}
+    --bg-color: #f3f4f6;
+    --text-color: #1f2937;
+    --card-bg: #ffffff;
+    --card-border: #e5e7eb;
+    --primary-color: #ff4c4c;
+    --primary-hover: #ff3333;
+    --btn-text: #ffffff;
+    --secondary-btn: #e5e7eb;
+    --secondary-btn-text: #374151;
+    --input-bg: #ffffff;
+    --input-border: #d1d5db;
+}
+
+/* --- Dark Theme Overrides --- */
+body.dark-mode {
+    --bg-color: #111827;
+    --text-color: #f9fafb;
+    --card-bg: #1f2937;
+    --card-border: #374151;
+    --secondary-btn: #374151;
+    --secondary-btn-text: #f9fafb;
+    --input-bg: #374151;
+    --input-border: #4b5563;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .menu-bar {
