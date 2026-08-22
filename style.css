@@ -1,241 +1,83 @@
+/* --- Menu Bar Styles --- */
 :root {
-    --bg-color: #f3f4f6;
-    --text-color: #1f2937;
-    --card-bg: #ffffff;
-    --card-border: #e5e7eb;
-    --primary-color: #ff4c4c;
-    --primary-hover: #ff3333;
-    --btn-text: #ffffff;
-    --secondary-btn: #e5e7eb;
-    --secondary-btn-text: #374151;
-    --input-bg: #ffffff;
-    --input-border: #d1d5db;
+  --primary-color: #3498db;}
 }
 
-body.dark-mode {
-    --bg-color: #111827;
-    --text-color: #f9fafb;
-    --card-bg: #1f2937;
-    --card-border: #374151;
-    --secondary-btn: #374151;
-    --secondary-btn-text: #f9fafb;
-    --input-bg: #374151;
-    --input-border: #4b5563;
-}
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    transition: background-color 0.3s, color 0.3s;
-}
-
-header {
+.menu-bar {
+    display: flex;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
     background-color: var(--card-bg);
     border-bottom: 1px solid var(--card-border);
-    padding: 1rem 2rem;
-    position: sticky;
-    top: 0;
-    z-index: 100;
+    justify-content: center;
+    overflow-x: auto;
 }
 
-.header-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 1rem;
-}
-
-.header-actions {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-}
-
-/* --- Search Bar Styles --- */
-.search-bar {
-    padding: 0.6rem 1rem;
-    border-radius: 6px;
-    border: 1px solid var(--input-border);
-    background-color: var(--input-bg);
+.menu-item {
+    background: none;
+    border: none;
     color: var(--text-color);
     font-size: 1rem;
-    outline: none;
-    transition: border-color 0.2s;
-    width: 250px;
-}
-
-.search-bar:focus {
-    border-color: var(--primary-color);
-}
-
-main {
-    max-width: 1200px;
-    margin: 2rem auto;
-    padding: 0 2rem;
-}
-
-.gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1.5rem;
-}
-
-.card {
-    background-color: var(--card-bg);
-    border: 1px solid var(--card-border);
-    border-radius: 8px;
-    overflow: hidden;
-    transition: transform 0.2s, box-shadow 0.2s;
-    display: flex;
-    flex-direction: column;
-}
-
-.card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-}
-
-.card-banner {
-    width: 100%;
-    height: 160px;
-    object-fit: cover;
-    background-color: var(--card-border);
-}
-
-.card-content {
-    padding: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-}
-
-/* --- Title & Icon Layout --- */
-.card-header-row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 0.25rem;
-}
-
-.card-title {
-    font-size: 1.25rem;
-}
-
-.unsandboxed-icon {
-    width: 24px;
-    height: 24px;
-    object-fit: contain;
-    cursor: help; /* Changes mouse to a question mark when hovering */
-}
-
-.card-author {
-    font-size: 0.9rem;
-    color: var(--secondary-btn-text);
-    opacity: 0.8;
-    margin-bottom: 0.5rem;
-    font-weight: 500;
-}
-
-.card-description {
-    font-size: 0.95rem;
-    margin-bottom: 1.5rem;
-    line-height: 1.4;
-    opacity: 0.9;
-    flex-grow: 1; /* Pushes the buttons to the bottom */
-}
-
-.button-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-}
-
-/* STRICT Button & Icon Alignment */
-.btn {
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    gap: 8px !important;
-    padding: 0.6rem 1rem;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
     font-weight: 600;
-    font-size: 1rem;
-    transition: background-color 0.2s, filter 0.2s;
-    text-decoration: none;
+    padding: 0.6rem 1.2rem;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background-color 0.2s, color 0.2s;
 }
 
-.btn-icon {
-    width: 20px !important;
-    height: 20px !important;
-    min-width: 20px !important;
-    object-fit: contain !important;
-    display: block !important;
+.menu-item:hover {
+    background-color: var(--secondary-btn);
 }
 
-.btn-primary {
+.menu-item.active {
     background-color: var(--primary-color);
     color: var(--btn-text);
 }
 
-.btn-primary:hover {
-    background-color: var(--primary-hover);
-}
-
-.btn-secondary {
-    background-color: var(--secondary-btn);
-    color: var(--secondary-btn-text);
-}
-
-
-/* --- Try Group & Select Input Styles --- */
-/* --- Try Group & Select Input Styles --- */
-.try-group {
+/* --- Sprite Library Grid --- */
+.library-grid {
     display: flex;
-    gap: 0.5rem;
-    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 2rem 0;
 }
 
-.mod-select {
-    flex: 1;
-    min-width: 0;
-    padding: 0.6rem 0.5rem;
-    border-radius: 6px;
-    border: 1px solid var(--input-border);
-    background-color: var(--input-bg);
-    color: var(--text-color);
-    font-size: 0.9rem;
-    outline: none;
+/* --- Converted SCSS to standard CSS variables --- */
+.library-item {
+    transition: transform 0.4s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    flex-basis: 160px;
+    position: relative;
+    height: 160px;
+    max-width: 160px;
+    margin: 0.5rem; /* Replaced $space */
+    padding: 1rem 1rem 0 1rem;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: var(--text-color); /* Matches your global text */
+    background: var(--card-bg); /* Matches your card background */
+    border-width: 2px;
+    border-style: solid;
+    border-color: #ffffff00;
+    border-radius: 0.75rem;
+    text-align: center;
     cursor: pointer;
-    transition: border-color 0.2s;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
 }
 
-.mod-select:focus {
-    border-color: var(--primary-color);
+.library-item-extension {
+    align-self: stretch;
 }
 
-.mod-select option:disabled {
-    color: #888888;
+.library-item:hover {
+    border-width: 2px;
+    border-color: var(--primary-color); /* Maps to your primary red hover[cite: 1] */
 }
 
-.try-group .try-btn {
-    min-width: 70px;
-    flex-shrink: 0;
-}
-.btn-secondary:hover {
-    filter: brightness(0.9);
+.library-item-image {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    margin-bottom: 0.75rem;
 }
