@@ -3,25 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TurboWarp Extensions</title>
+    <title>Chipywarp Lab</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <div class="header-content">
-            <h1>Chipywarp Extensions Gallery</h1>
-            <div class="header-actions">
-                <input type="text" id="search-input" placeholder="Search extensions..." class="search-bar">
-                <button id="theme-toggle" class="btn btn-secondary">
-                    <img id="theme-icon" src="assets/moon.png" width="20" height="20" alt="Theme Icon" class="btn-icon" onerror="this.style.display='none'">
-                    <span id="theme-text">Dark Theme</span>
-                </button>
-            </div>
+    <!-- Menu Bar -->
+    <nav class="navbar">
+        <div class="logo">
+            <img src="assets/cw-lab.png" alt="Chipywarp Lab" onerror="this.src='https://via.placeholder.com/150x40?text=CW-Lab+Logo'">
         </div>
-    </header>
+        <div class="nav-links">
+            <button class="nav-btn" onclick="switchTab('home')">Home</button>
+            <button class="nav-btn" onclick="switchTab('extensions')">Extensions</button>
+            <button class="nav-btn theme-toggle" onclick="toggleTheme()">🌓 Change Theme</button>
+        </div>
+    </nav>
 
+    <!-- Main Content -->
     <main>
-        <div id="gallery" class="gallery"></div>
+        <!-- Home Section -->
+        <section id="home" class="tab-content active">
+            <div class="welcome-banner">
+                <h1>Welcome Chipywarp-Lab!</h1>
+                <p>Test chipywarp Libraries and go check it!</p>
+            </div>
+        </section>
+
+        <!-- Extensions Section -->
+        <section id="extensions" class="tab-content">
+            <h2>Available Extensions</h2>
+            <div id="card-container" class="card-grid">
+                <!-- Extension Cards will be injected here by JavaScript -->
+            </div>
+        </section>
     </main>
 
     <script src="script.js"></script>
