@@ -1,6 +1,3 @@
-// Helper to determine the current base URL
-const baseUrl = window.location.href.split('/').slice(0, -1).join('/');
-
 // Tab Switching Logic
 function switchTab(tabId) {
     document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
@@ -33,7 +30,9 @@ function renderExtensions(extensionsData) {
     container.innerHTML = ''; // Clear container
 
     extensionsData.forEach(ext => {
-        const fullFileUrl = `${baseUrl}/${ext.file}`;
+        // The URL constructor safely converts relative paths into absolute URLs 
+        // specifically matching your GitHub Pages domain and repository path.
+        const fullFileUrl = new URL(ext.file, window.location.href).href;
         const encodedUrl = encodeURIComponent(fullFileUrl);
         const guiUrl = `https://obeyorbehacked750-jpg.github.io/chipywarp-gui/?extension=${encodedUrl}`;
 
@@ -55,7 +54,6 @@ function renderExtensions(extensionsData) {
                 <span class="badge ${badgeClass}">${badgeText}</span>
             </div>
             <div class="card-footer">
-                <!-- Fetches real JS text to clipboard or copies standard fetch import script -->
                 <button onclick="copyToClipboard('// Code for ${ext.name}\\nfetch(\\'${fullFileUrl}\\').then(r=>r.text()).then(eval);', 'Code copied!')">Copy Code</button>
                 <button onclick="copyToClipboard('${fullFileUrl}', 'URL Copied!')">Copy Url</button>
                 <button onclick="window.open('${guiUrl}', '_blank')">Open Extension</button>
@@ -77,7 +75,7 @@ async function loadExtensions() {
     } catch (error) {
         console.error('Error loading extensions:', error);
         document.getElementById('card-container').innerHTML = 
-            '<p style="color: red;">Failed to load extensions. Ensure you are running this on a local web server (not file://).</p>';
+            '<p style="color: red;">Failed to load extensions. Ensure extensions.json is in the root directory.</p>';
     }
 }
 
