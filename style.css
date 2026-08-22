@@ -1,111 +1,170 @@
-/* --- Base Variables (Light Theme) --- */
 :root {
-    --bg-color: #f3f4f6;
-    --text-color: #1f2937;
+    --bg-color: #f4f4f9;
+    --text-color: #333333;
+    --nav-bg: #ffffff;
     --card-bg: #ffffff;
-    --card-border: #e5e7eb;
-    --primary-color: #ff4c4c;
-    --primary-hover: #ff3333;
-    --btn-text: #ffffff;
-    --secondary-btn: #e5e7eb;
-    --secondary-btn-text: #374151;
-    --input-bg: #ffffff;
-    --input-border: #d1d5db;
+    --border-color: #dddddd;
+    --primary: #007bff;
+    --primary-hover: #0056b3;
+    --badge-unsandboxed: #dc3545;
+    --badge-sandboxed: #28a745;
 }
 
-/* --- Dark Theme Overrides --- */
-body.dark-mode {
-    --bg-color: #111827;
-    --text-color: #f9fafb;
-    --card-bg: #1f2937;
-    --card-border: #374151;
-    --secondary-btn: #374151;
-    --secondary-btn-text: #f9fafb;
-    --input-bg: #374151;
-    --input-border: #4b5563;
+[data-theme="dark"] {
+    --bg-color: #121212;
+    --text-color: #e0e0e0;
+    --nav-bg: #1e1e1e;
+    --card-bg: #2a2a2a;
+    --border-color: #444;
+    --primary: #3b82f6;
+    --primary-hover: #60a5fa;
 }
+
+* { box-sizing: border-box; }
 
 body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: var(--bg-color);
     color: var(--text-color);
-    transition: background-color 0.3s, color 0.3s;
+    transition: all 0.3s ease;
 }
 
-.menu-bar {
+/* Navbar */
+.navbar {
     display: flex;
-    gap: 0.5rem;
-    padding: 1rem 2rem;
-    background-color: var(--card-bg);
-    border-bottom: 1px solid var(--card-border);
-    justify-content: center;
-    overflow-x: auto;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background-color: var(--nav-bg);
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-.menu-item {
-    background: none;
+.logo img {
+    height: 40px;
+}
+
+.nav-links button {
+    background: transparent;
     border: none;
     color: var(--text-color);
-    font-size: 1rem;
-    font-weight: 600;
-    padding: 0.6rem 1.2rem;
+    font-size: 16px;
     cursor: pointer;
-    border-radius: 6px;
-    transition: background-color 0.2s, color 0.2s;
+    margin-left: 15px;
+    padding: 8px 12px;
+    border-radius: 5px;
+    transition: background 0.2s;
 }
 
-.menu-item:hover {
-    background-color: var(--secondary-btn);
+.nav-links button:hover {
+    background: var(--border-color);
 }
 
-.menu-item.active {
-    background-color: var(--primary-color);
-    color: var(--btn-text);
+.theme-toggle {
+    border: 1px solid var(--border-color) !important;
 }
 
-/* --- Sprite Library Grid --- */
-.library-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    padding: 2rem 0;
+/* Tabs */
+.tab-content {
+    display: none;
+    padding: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-/* --- Converted SCSS to standard CSS variables --- */
-.library-item {
-    transition: transform 0.4s ease;
+.tab-content.active {
+    display: block;
+}
+
+.welcome-banner {
+    text-align: center;
+    padding: 60px 20px;
+    background: var(--card-bg);
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    border: 1px solid var(--border-color);
+}
+
+/* Extension Cards */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 25px;
+    margin-top: 20px;
+}
+
+.card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    flex-basis: 160px;
-    position: relative;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.card-banner {
+    width: 100%;
     height: 160px;
-    max-width: 160px;
-    margin: 0.5rem; /* Replaced $space */
-    padding: 1rem 1rem 0 1rem;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    color: var(--text-color); /* Matches your global text */
-    background: var(--card-bg); /* Matches your card background */
-    border-width: 2px;
-    border-style: solid;
-    border-color: #ffffff00;
-    border-radius: 0.75rem;
-    text-align: center;
+    object-fit: cover;
+    background-color: #e9ecef;
+}
+
+.card-body {
+    padding: 20px;
+    flex-grow: 1;
+}
+
+.card-body h3 {
+    margin: 0 0 10px 0;
+}
+
+.author {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 15px;
+}
+
+.desc {
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 15px;
+}
+
+.badge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    color: white;
+}
+
+.badge.unsandboxed { background-color: var(--badge-unsandboxed); }
+.badge.sandboxed { background-color: var(--badge-sandboxed); }
+
+.card-footer {
+    padding: 15px 20px;
+    background: var(--nav-bg);
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.card-footer button {
+    flex: 1;
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+    background: var(--primary);
+    color: white;
     cursor: pointer;
+    font-size: 13px;
+    transition: background 0.2s;
 }
 
-.library-item-extension {
-    align-self: stretch;
-}
-
-.library-item:hover {
-    border-width: 2px;
-    border-color: var(--primary-color); /* Maps to your primary red hover[cite: 1] */
-}
-
-.library-item-image {
-    width: 80px;
-    height: 80px;
-    object-fit: contain;
-    margin-bottom: 0.75rem;
+.card-footer button:hover {
+    background: var(--primary-hover);
 }
